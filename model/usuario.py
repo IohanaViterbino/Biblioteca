@@ -1,4 +1,3 @@
-from database.db import _executar
 
 class Usuario():
     def __init__(self, nome, telefone, tipo, limite=0, inadimplente=0, ativo=1, matricula=None):
@@ -43,67 +42,6 @@ class Usuario():
     def set_ativo(self, a):
         self.__ativo = a
 
-    query="CREATE TABLE IF NOT EXISTS usuario(id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT, telefone TEXT, tipo NUMERIC, limiteLivros NUMERIC, inadimplente NUMERIC, ativo NUMERIC)"
-    _executar(query)
-
-    def salvar(self):
-        query = f"""
-                INSERT INTO usuario (nome, telefone, tipo, limiteLivros, inadimplente, ativo)
-                VALUES ('{self.__nome}','{self.__telefone}','{int(self.__tipo)}',{int(self.__limiteLivros)},{int(self.__inadimplente)}, {int(self.__ativo)})
-                """
-        _executar(query)
-    
-    def alterarTelfone(self):
-        query = f"""
-                UPDATE usuario SET telefone = {self.__telefone}
-                WHERE id = {int(self.__matricula)}
-                """
-        _executar(query)
-    
-    def alterarInadimplencia(self):
-        query = f"""
-                UPDATE usuario SET inadimplente = {int(self.__inadimplente)}
-                WHERE id = {int(self.__matricula)}
-                """
-        _executar(query)
-    
-    def alterarAtividade(self):
-        query = f"""
-                UPDATE usuario SET ativo = {int(self.__ativo)}
-                WHERE id = {int(self.__matricula)}
-                """
-        _executar(query)
-        
-    def alterarLimite(self):
-        query = f"""
-                UPDATE usuario SET limiteLivros = {int(self.__limiteLivros)}
-                WHERE id = {int(self.__matricula)}
-                """
-        _executar(query)
-
-    def excluirUsuario(self):
-        query=f"DELETE FROM usuario WHERE id = {int(self.__matricula)}"
-        _executar(query)
-
-    @staticmethod
-    #listar todos os professores cadastrados
-    def getUsuarios():
-        query = f"""
-                SELECT * FROM usuario
-                """
-        usuarios=_executar(query)
-        return usuarios
-        
-   #buscar um professor especifico
-    @staticmethod
-    def getUsuario(id):
-        query = f"""
-                SELECT*FROM usuario
-                WHERE id = {int(id)}
-                """
-        usuario=_executar(query)[0]
-        usuario=Usuario(matricula=usuario[0], nome=usuario[1], telefone=usuario[2], tipo=usuario[3], limite=usuario[4], inadimplente=usuario[5], ativo=usuario[6])
-        return usuario
 
     def __str__(self):
         tipo_usuario = 'Aluno' if self.__tipo == 0 else 'Professor'

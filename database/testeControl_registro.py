@@ -1,22 +1,22 @@
-from controller.registro import AdicionarRegistro, ListarRegistro,  AtualizarRegistro, BuscarRegistro
+from controller.registro import RegistroController
 
 if __name__ == '__main__':
     print('Adicionando')  
-    AdicionarRegistro.postLivro(2, 3, 1)
-    AdicionarRegistro.postLivro(2, 1, 3)
-    AdicionarRegistro.postLivro(2, 2, 1)
-    AdicionarRegistro.postLivro(2, 4, 3)
-    AdicionarRegistro.postLivro(2, 5, 4)
-    AdicionarRegistro.postLivro(2, 6, 4)
+    # RegistroController.emprestimo(2, 3, 1)
+    # RegistroController.emprestimo(2, 1, 3)
+    # RegistroController.emprestimo(2, 4, 3)
+    # RegistroController.emprestimo(2, 3, 3)
+    RegistroController.emprestimo(2, 5, 2, 'livro')
 
     print("Listando")
-    ListarRegistro.get()
+    for rg in RegistroController.get_registros():
+        print(rg)
 
     print('Apagando')
     # Apagar.get(2)
 
     print("Buscar")
-    BuscarRegistro.get(3)
+    print(RegistroController.get_registro(4))
 
     # print('Atulizaaando')
     # AtualizarRegistro.renovacao(3)

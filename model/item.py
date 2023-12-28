@@ -1,4 +1,3 @@
-from database.db import _executar
 from datetime import datetime
 
 class Item:
@@ -29,61 +28,7 @@ class Item:
         self.__disponivel = disponivel
     def set_codItem(self, codItem):
         self.__codItem = codItem
-
-    query = "CREATE TABLE IF NOT EXISTS item (codigo INTEGER PRIMARY KEY AUTOINCREMENT, disponivel NUMERIC NOT NULL, dataAquisicao DATE NOT NULL, idLivro NUMERIC, idTablet NUMERIC)"
-    _executar(query)
-
-    def salvarTablet(self):
-        query = f"""
-        INSERT INTO item (dataAquisicao, idTablet, disponivel)
-        VALUES ('{self.__dataAquisicao}', {int(self.__livroTablet)}, {int(self.__disponivel)})
-        """
-        _executar(query)
-
-    def salvarLivro(self):
-        query = f"""
-        INSERT INTO item (dataAquisicao, idLivro, disponivel)
-        VALUES ('{self.__dataAquisicao}', {int(self.__livroTablet)}, {int(self.__disponivel)})
-        """
-        _executar(query)
-
-    def alterarDisponibilidade(self):
-        query = f"""
-                UPDATE item SET disponivel = {self.__disponivel}
-                WHERE Codigo = '{int(self.__codItem)}'
-                """
-        _executar(query)
-
-    def excluirItem(self):
-        query=f"DELETE FROM item WHERE Codigo = '{int(self.__codItem)}'"
-        _executar(query)
-    
-   #buscar itens
-    @staticmethod
-    def getItens():
-        query="SELECT * FROM item"
-        itens=_executar(query)
-        return itens
-
-    @staticmethod
-    def getItemTablet(id):
-        query = f"""
-                SELECT codigo, dataAquisicao, idTablet, disponivel FROM item
-                WHERE codigo ={int(id)}
-                """
-        item=_executar(query)[0]
-        item=Item(codigo=item[0], livroOUtablet=item[2], disponivel=item[3])
-        return item
-    
-    @staticmethod
-    def getItemLivro(id):
-        query = f"""
-                SELECT codigo, dataAquisicao, idLivro, disponivel FROM item
-                WHERE codigo ={int(id)}
-                """
-        item=_executar(query)[0]
-        item=Item(codigo=item[0], livroOUtablet=item[2], disponivel=item[3])
-        return item
-
+  
     def __str__(self):
-        return f"Item: {self.__codItem}, Data de Aquisição: {self.__dataAquisicao}, Tipo: {self.__livroTablet}, Disponível: {self.__disponivel}"
+        disponibilidade_item = 'Indisponível' if self.__tipo == 0 else 'Disponível'
+        return f"Item: {self.__codItem}, Data de Aquisição: {self.__dataAquisicao}, Tipo: {self.__livroTablet}, Disponível: {disponibilidade_item}"
