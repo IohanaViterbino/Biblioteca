@@ -20,3 +20,8 @@ Principais funcionalidades do projeto:
 - Cadastro de novos itens no acervo;
 - Cadastro de usuários, incluindo alunos e professores;
 - Listagem de todos os registros disponíveis no sistema.
+
+## Licença
+
+[MIT](https://choosealicense.com/licenses/mit/)
+
